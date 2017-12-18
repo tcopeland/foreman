@@ -1,4 +1,7 @@
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import React from 'react';
+
 import store from '../redux';
 import componentRegistry from '../components/componentRegistry';
 
@@ -10,10 +13,7 @@ export function mount(component, selector, data) {
   if (reactNode) {
     ReactDOM.unmountComponentAtNode(reactNode);
     ReactDOM.render(
-      componentRegistry.markup(component, {
-        data,
-        store,
-      }),
+      <Provider store={store}>{componentRegistry.markup(component, data, store)}</Provider>,
       reactNode,
     );
   } else {
